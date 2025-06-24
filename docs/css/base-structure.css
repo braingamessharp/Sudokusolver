@@ -3,7 +3,7 @@
     --popup_width: 330px;
     --popup_width_larger: calc(var(--popup_width) + 30px);
 
-    --shadow_low: 0 2px 2px rgba(0, 0, 0, 0.5);
+    --shadow_low: 0 3px 3px rgba(0, 0, 0, 0.334);
     --shadow_mid: 0 5px 5px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.3);
 }
 
@@ -89,6 +89,27 @@ header {
     margin: 0 auto;
 }
 
+#number-input-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 400px;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    display: none;
+}
+
+#number-input-panel button {
+    border: 2px solid black;
+    padding: 15px;
+    font-size: 20px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 h3 {
     text-align: center;
 }
@@ -128,9 +149,14 @@ hr.newgridhrline {
 #top_button button,
 .resize-grid-buttons button {
     display: inline-block;
-    padding: 2px 5px;
+    padding: 5px 10px;
     text-decoration: none;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 17px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.17);
 }
 
 .button,
@@ -232,11 +258,10 @@ hr.newgridhrline {
     box-shadow: var(--shadow_low);
     border: 0;
     font-size: 0;
-    width: 600px;
-    /*    box-sizing: border-box;*/
-    /*    width: min(630px, 100%);*/
+    max-width: 800px;
     margin: 5px auto;
-    padding: 10px;
+    padding: 30px 20px;
+    border-radius: 10px;
 }
 
 #duplicate,
@@ -249,16 +274,17 @@ hr.newgridhrline {
     position: relative;
     text-align: left;
     padding-bottom: 5px;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 #nb_sudoku7_lb {
     font-weight: bold;
+
 }
 
 #sub_txt,
 #style_txt {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #stylemode_button,
@@ -288,6 +314,7 @@ hr.newgridhrline {
     font-size: 14px;
     text-align: center;
     line-height: 28px;
+    font-weight: 600;
 }
 
 .label {
@@ -766,7 +793,7 @@ body textarea {
 #dvique {
     background: var(--bgMedium);
     box-shadow: var(--shadow_low);
-    width: 400px;
+    max-width: 400px;
     margin: 0 auto;
 }
 
