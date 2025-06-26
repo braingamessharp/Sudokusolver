@@ -23,7 +23,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     margin: 0.5em auto 0.5em;
-    background: var(--bgPage);
+    background: white;
     color: var(--fgMain);
 }
 
@@ -52,6 +52,10 @@ header {
     overflow: hidden;
     z-index: 2;
     box-shadow: var(--shadow_low);
+}
+
+#header {
+    background-color: #98cdff;
 }
 
 #stop_watch {
@@ -125,6 +129,10 @@ header {
 
 #number-input-panel button:hover {
     transform: scale(1.04);
+}
+
+#number-input-panel .erase {
+    background-color: rgb(250, 186, 186);
 }
 
 h3 {
@@ -1614,6 +1622,16 @@ sup {
     #number-input-panel {
         width: 400px;
         margin-top: 0px;
+        grid-template-columns: repeat(9, 1fr);
+    }
+
+    #number-input-panel .erase {
+        grid-column: 1/11;
+    }
+
+    #number-input-panel button {
+        height: 40px;
+        font-size: 25px;
     }
 }
 
@@ -1712,7 +1730,7 @@ sup {
 }
 
 @media only screen and (max-width:410px) {
-    #canvas {
+    /* #canvas {
         width: 100vw !important;
         height: 100vw !important;
     }
@@ -1720,7 +1738,7 @@ sup {
     #dvique {
         width: 100vw !important;
         height: 100vw !important;
-    }
+    } */
 
     #number-input-panel {
         width: 95vw;
