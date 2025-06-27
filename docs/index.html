@@ -2031,19 +2031,19 @@
 
         if (mode === 'solve') {
             document.querySelectorAll('#tool-holder').forEach(el => el.style.display = 'none');
-            document.querySelector('#stop_watch').style.display = 'none'
             document.querySelector('#answer_key').style.display = 'none'
-            document.querySelector('#float-key').style.display = 'none'
             const numberPanel = document.querySelector('#number-input-panel');
             if (numberPanel) numberPanel.style.display = 'grid';
 
             window.addEventListener('load', () => {
+                document.querySelector('#stop_watch').style.display = 'none'
+                document.querySelector('#float-key').style.display = 'none'
                 setTimeout(() => {
                     if (pu?.mode?.pu_a && pu?.mode?.pu_q) {
                         pu.mode.pu_a.edit_mode = 'number';
                         pu.mode.pu_q.edit_mode = 'number';
                         setSelected('1');
-                        setTimeout(() => setSelected(''), 100); 
+                        setTimeout(() => setSelected(''), 100);
                     }
                 }, 300);
             });
