@@ -2036,7 +2036,7 @@
             
             window.addEventListener('load', () => {
                 document.querySelector('#stop_watch').style.display = 'none'
-                document.querySelector('#float-key')[0].style.display = 'none'
+                document.querySelectorAll('#float-key')[0].style.display = 'none'
                 document.querySelector('#answer_key').style.display = 'none'
                 setTimeout(() => {
                     if (pu?.mode?.pu_a && pu?.mode?.pu_q) {
