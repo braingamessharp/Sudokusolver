@@ -2038,6 +2038,8 @@
                 document.querySelector('#stop_watch').style.display = 'none'
                 document.querySelectorAll('#float-key')[0].style.display = 'none'
                 document.querySelector('#answer_key').style.display = 'none'
+                document.querySelector('#header').style.display = 'none'
+                document.querySelector('#puzzlesolver-container').style.padding = '0px 10px'
                 setTimeout(() => {
                     if (pu?.mode?.pu_a && pu?.mode?.pu_q) {
                         pu.mode.pu_a.edit_mode = 'number';
