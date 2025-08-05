@@ -2042,54 +2042,36 @@
                 document.querySelector('#bottom_button').style.display = 'none';
                 document.querySelector('#edit_button').style.display = 'none';
                 document.querySelector('#top_button').style.display = 'none';
-                document.querySelector('#tab_selection').style.display = 'none';
                 
-                // 2. Hide all main mode buttons
-                const allModes = document.querySelectorAll('#mode_button > .label, #mode_button > input');
-                allModes.forEach(el => el.style.display = 'none');
+                // 2. NEW: Hide the entire "Mode" and "Style" rows
+                document.querySelector('#mode_button').style.display = 'none';
+                document.querySelector('#stylemode_button').style.display = 'none';
 
-                // 3. Force the main tool containers to be visible
+                // 3. Force the main tool container and sub-mode panel to be visible
                 document.querySelector('#tool-holder').style.display = 'block';
-                document.querySelector('#mode_button').style.display = 'block';
                 document.querySelector('#submode_button').style.display = 'block';
-
-                // 4. Force ONLY the "Number" mode button to be visible
-                document.querySelector('#mo_number').style.display = 'inline-block';
-                document.querySelector('#mo_number_lb').style.display = 'inline-block';
                 
-                // 5. Force the "Number" sub-mode panel to be visible
+                // 4. Force the "Number" sub-mode container to be visible
                 const numberSubPanel = document.querySelector('#mode_number');
                 if (numberSubPanel) numberSubPanel.style.display = 'inline-block';
                 
-                // 6. Specifically hide the sub-modes you DON'T want
+                // 5. UPDATED: Specifically hide ONLY the sub-modes you don't want
                 const idsToHide = [
-                    'sub_number1', 'sub_number1_lb',     // Normal
                     'sub_number7', 'sub_number7_lb',     // Candidates
-                    'sub_number8', 'sub_number8_lb'      // Long
+                    'sub_number8', 'sub_number8_lb',     // Long
+                    'sub_number10', 'sub_number10_lb'    // L
                 ];
                 idsToHide.forEach(id => {
                     const el = document.querySelector(`#${id}`);
                     if (el) el.style.display = 'none';
                 });
 
-                // 7. NEW: Force the correct Style panel to show
-                document.querySelectorAll('[id^=style_]').forEach(el => el.style.display = 'none');
-                const numberStylePanel = document.querySelector('#style_number');
-                if (numberStylePanel) numberStylePanel.style.display = 'inline-block';
-
-                // 8. Set the app's internal mode to "Number"
+                // 6. Set the app's internal mode to "Number"
                 if (typeof pu !== 'undefined') {
                     pu.mode.pu_a.edit_mode = 'number';
-                    document.querySelector('#mo_number').checked = true;
-                }
-
-                // 9. Prevent the "Number" button from being re-clicked
-                const numberModeLabel = document.querySelector('#mo_number_lb');
-                if (numberModeLabel) {
-                    numberModeLabel.style.pointerEvents = 'none';
                 }
                 
-                // 10. Show the on-screen number panel
+                // 7. Show the on-screen number panel
                 const numberPanel = document.querySelector('#number-input-panel');
                 if (numberPanel) numberPanel.style.display = 'grid';
 
