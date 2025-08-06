@@ -2011,7 +2011,7 @@
             </div>
         </div>
     </div>
- <script type="text/javascript">
+<script type="text/javascript">
     var ver = "3.2.1"; // Also defined in class_p.js
     script_sources = ["./js/libs/easytimer.min.js",
         "./js/timer.js",
@@ -2037,15 +2037,20 @@
             setTimeout(() => {
                 // ---- START OF CUSTOMIZATIONS ----
 
-                // 1. Hide all the major UI panels we don't need
+                // 1. UPDATED: Hide all the major UI panels we don't need
                 document.querySelector('#header').style.display = 'none';
                 document.querySelector('#bottom_button').style.display = 'none';
                 document.querySelector('#edit_button').style.display = 'none';
                 document.querySelector('#top_button').style.display = 'none';
+                document.querySelector('#tab_selection').style.display = 'none';
+                document.querySelector('#stop_watch').style.display = 'none';
+                document.querySelector('#solution_check').style.display = 'none';
+                document.querySelector('#answer_key').style.display = 'none'; // NEW: Hides the text above the timer
                 
-                // 2. NEW: Hide the entire "Mode" and "Style" rows
+                // 2. Hide the "Mode", "Style", and "Sub:" text labels
                 document.querySelector('#mode_button').style.display = 'none';
                 document.querySelector('#stylemode_button').style.display = 'none';
+                document.querySelector('#sub_txt').style.display = 'none';
 
                 // 3. Force the main tool container and sub-mode panel to be visible
                 document.querySelector('#tool-holder').style.display = 'block';
@@ -2055,7 +2060,7 @@
                 const numberSubPanel = document.querySelector('#mode_number');
                 if (numberSubPanel) numberSubPanel.style.display = 'inline-block';
                 
-                // 5. UPDATED: Specifically hide ONLY the sub-modes you don't want
+                // 5. Specifically hide the sub-modes you DON'T want
                 const idsToHide = [
                     'sub_number7', 'sub_number7_lb',     // Candidates
                     'sub_number8', 'sub_number8_lb',     // Long
