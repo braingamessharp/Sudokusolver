@@ -1,0 +1,22 @@
+flowcharts/
+videos/
+old_images/
+temp/
+tmp/
+.DS_Store
+notes/
+
+# Pycharm IDE
+.idea/
+
+*.log
+
+launch_sync.bat
+
+docs/css/images/corky.psd
+docs/css/images/parch.psd
+
+# Visual Studio Code
+.vscode/
+jsconfig.json
+node_modules/
