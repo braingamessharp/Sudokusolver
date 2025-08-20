@@ -1781,22 +1781,11 @@ sup {
     }
 
     #dvique {
-        width: 100vw !important;
+        width: 100vw !importa rcrfnt;
         height: 100vw !important;
     } */
 
-    #number-input-panel {
-        width: 95vw;
-        gap: 5px;
-    }
-
-    #number-input-panel button {
-        height: 100%;
-    }
-
-    #number-input-panel button {
-        font-size: 25px;
-    }
+    
 }
 
 /* Replay */
