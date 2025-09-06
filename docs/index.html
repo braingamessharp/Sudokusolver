@@ -247,7 +247,7 @@
                             </span>
                             <span id="mode_number" style="display:none;">
                                 <input type="radio" name="mode_number" value="1" id="sub_number1" checked="checked">
-                                <label for="sub_number1" class="labelL" id="sub_number1_lb">Normal</label>
+                                <label for="sub_number1" class="labelL" id="sub_number1_lb"></label>
                                 <input type="radio" name="mode_number" value="10" id="sub_number10">
                                 <label for="sub_number10" class="labelL" id="sub_number10_lb">L</label>
                                 <input type="radio" name="mode_number" value="6" id="sub_number6">
@@ -2012,92 +2012,114 @@
         </div>
     </div>
   <script type="text/javascript">
-    var ver = "3.2.1"; // Also defined in class_p.js
-    script_sources = ["./js/libs/easytimer.min.js",
-        "./js/timer.js",
-        "./js/conversion.js"
-    ];
-    for (let i = 0; i < script_sources.length; i++) {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = script_sources[i] + "?v=" + ver;
-        script.async = false;
-        document.head.appendChild(script);
-    }
+        var ver = "3.2.1"; // Also defined in class_p.js
+        script_sources = ["./js/libs/easytimer.min.js",
+            "./js/timer.js",
+            "./js/conversion.js"
+        ];
+        for (let i = 0; i < script_sources.length; i++) {
+            let script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src = script_sources[i] + "?v=" + ver;
+            script.async = false;
+            document.head.appendChild(script);
+        }
 
-    document.getElementById('version-number').innerHTML = ver;
+        document.getElementById('version-number').innerHTML = ver;
 
-    const hashParams = new URLSearchParams(window.location.hash.slice(1));
-    const mode = hashParams.get('m');
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        const mode = hashParams.get('m');
 
-    if (mode === 'solve') {
-        window.addEventListener('load', () => {
-            
-            setTimeout(() => {
-                // ---- START OF CUSTOMIZATIONS ----
+        if (mode === 'solve') {
+            window.addEventListener('load', () => {
 
-                // 1. UPDATED: Hide unnecessary elements AND remove extra space
-                document.querySelectorAll('#tool-holder, #header, #bottom_button, #stop_watch, #solution_check, #answer_key, #float-key').forEach(el => {
-                    if(el) el.style.display = 'none';
-                });
-                const appContainer = document.querySelector('#app-container');
-                if (appContainer) appContainer.style.marginTop = '0';
-                const puzzleContainer = document.querySelector('#puzzlesolver-container');
-                if (puzzleContainer) {
-                    puzzleContainer.style.paddingTop = '10px';
-                    puzzleContainer.style.paddingBottom = '10px';
-                }
-                
-                // 2. Define which sub-mode buttons to keep
-                const subModeSelectors = [
-                    '#sub_number1', '#sub_number1_lb',   // Normal
-                    '#sub_number3', '#sub_number3_lb',   // Corner Icon
-                    '#sub_number9', '#sub_number9_lb'    // Side Icon
-                ];
-                
-                // 3. Find the number panel
-                const numberPanel = document.querySelector('#number-input-panel');
+                setTimeout(() => {
+                    // ---- START OF CUSTOMIZATIONS ----
 
-                // 4. Move the buttons into the number panel
-                if (numberPanel) {
-                    const customButtonContainer = document.createElement('div');
-                    customButtonContainer.id = 'custom-sub-buttons';
-
-                    subModeSelectors.forEach(selector => {
-                        const el = document.querySelector(selector);
-                        if (el) {
-                            customButtonContainer.appendChild(el);
-                        }
+                    // 1. Hide unnecessary elements
+                    document.querySelectorAll('#tool-holder, #header, #bottom_button, #stop_watch, #solution_check, #answer_key, #float-key').forEach(el => {
+                        if (el) el.style.display = 'none';
                     });
+                    const appContainer = document.querySelector('#app-container');
+                    if (appContainer) appContainer.style.marginTop = '0';
+                    const puzzleContainer = document.querySelector('#puzzlesolver-container');
+                    if (puzzleContainer) {
+                        puzzleContainer.style.paddingTop = '10px';
+                        puzzleContainer.style.paddingBottom = '10px';
+                    }
 
-                    numberPanel.appendChild(customButtonContainer);
-                    numberPanel.style.display = 'grid';
-                }
+                    // 2. Define which sub-mode buttons to keep
+                    const subModeSelectors = [
+                        '#sub_number1', '#sub_number1_lb',  // Normal
+                        '#sub_number3', '#sub_number3_lb',  // Corner Icon
+                        '#sub_number9', '#sub_number9_lb'   // Side Icon
+                    ];
 
-                // 5. Set the app's internal mode to "Number"
-                if (typeof pu !== 'undefined') {
-                    pu.mode.pu_a.edit_mode = 'number';
-                }
+                    // 3. Find the number panel
+                    const numberPanel = document.querySelector('#number-input-panel');
 
-                // ---- END OF CUSTOMIZATIONS ----
-            }, 500);
-        });
-    }
+                    if (numberPanel) {
+                        // 4. Create and insert the Undo button
+                        const undoButton = document.createElement('button');
+                        undoButton.textContent = '↶';
+                        undoButton.title = 'Undo';
+                        undoButton.onclick = () => pu.undo();
+                        const button3 = Array.from(numberPanel.querySelectorAll('button')).find(btn => btn.textContent.trim() === '3');
+                        if (button3) {
+                            button3.insertAdjacentElement('afterend', undoButton);
+                        }
 
-    function setSelected(num) {
-        if (typeof pu === 'undefined' || pu.cursol === -1) { return; }
-        const key = num === '' ? "Backspace" : String(num);
-        const keyCode = key === "Backspace" ? 8 : key.charCodeAt(0);
-        const evt = new KeyboardEvent("keydown", {
-            key: key,
-            keyCode: keyCode,
-            which: keyCode,
-            bubbles: true,
-            cancelable: true
-        });
-        document.dispatchEvent(evt);
-    }
-</script>
+                        // 5. Create and insert the Redo button
+                        const redoButton = document.createElement('button');
+                        redoButton.textContent = '↷';
+                        redoButton.title = 'Redo';
+                        redoButton.onclick = () => pu.redo();
+                        const button6 = Array.from(numberPanel.querySelectorAll('button')).find(btn => btn.textContent.trim() === '6');
+                        if (button6) {
+                            button6.insertAdjacentElement('afterend', redoButton);
+                        }
+
+                        // 6. Create a separate container for sub-mode buttons and move them
+                        const subModeContainer = document.createElement('div');
+                        subModeContainer.id = 'custom-sub-buttons';
+                        subModeSelectors.forEach(selector => {
+                            const el = document.querySelector(selector);
+                            if (el) {
+                                subModeContainer.appendChild(el);
+                            }
+                        });
+                        numberPanel.appendChild(subModeContainer);
+                        
+                        // 7. Ensure the panel is visible and uses grid layout
+                        numberPanel.style.display = 'grid';
+                    }
+
+                    // 8. Set the app's internal mode to "Number"
+                    if (typeof pu !== 'undefined') {
+                        pu.mode.pu_a.edit_mode = 'number';
+                    }
+
+                    // ---- END OF CUSTOMIZATIONS ----
+                }, 500);
+            });
+        }
+
+        function setSelected(num) {
+            if (typeof pu === 'undefined' || pu.cursol === -1) {
+                return;
+            }
+            const key = num === '' ? "Backspace" : String(num);
+            const keyCode = key === "Backspace" ? 8 : key.charCodeAt(0);
+            const evt = new KeyboardEvent("keydown", {
+                key: key,
+                keyCode: keyCode,
+                which: keyCode,
+                bubbles: true,
+                cancelable: true
+            });
+            document.dispatchEvent(evt);
+        }
+    </script>
 </body>
 
 </html>

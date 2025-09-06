@@ -102,26 +102,31 @@ header {
     margin: 0 auto;
 }
 
+
 #number-input-panel {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    width: 300px;
-    gap: 8px;
+    /* 4-column layout */
+    grid-template-columns: repeat(4, 1fr);
+    /* Fixed width for all screen sizes */
+    width: 200px;
+    gap: 3px;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 8px auto;
     display: none;
-    margin-top: 10px;
+    /* Initially hidden, made visible by JS */
 }
 
+/* Style for all buttons in the panel (1-9, Undo, Redo, Erase) */
 #number-input-panel button {
     border: none;
     padding: 5px;
-    font-size: 30px;
+    font-size: 20px;
     background-color: #cbd9ec;
     color: #3370ea;
-    font-weight: 500;
-    height: 60px;
+    font-weight: 600;
+    /* Fixed height for all screen sizes */
+    height: 50px;
     cursor: pointer;
     transition: transform .1s ease;
     border-radius: 10px;
@@ -134,6 +139,50 @@ header {
 #number-input-panel .erase {
     background-color: rgb(250, 186, 186);
 }
+
+/* Container for Normal/Corner/Side mode toggles */
+#custom-sub-buttons {
+    /* Make the container span all 4 columns */
+    grid-column: 1 / 5;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 5px;
+}
+
+/* Style for the mode toggle buttons */
+#custom-sub-buttons>.labelL {
+    height: 30px;
+    width: 45px;
+    font-size: 14px;
+    border: none;
+    background-color: #cbd9ec;
+    color: #3370ea;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 0;
+}
+
+/* Style for the selected mode toggle */
+/* #custom-sub-buttons>input:checked+.labelL {
+    background: var(--greyLight);
+    color: var(--black);
+    box-shadow: 0 0 0 2px var(--orange);
+} */
+
+/* Style for the icon-based mode toggles */
+#custom-sub-buttons>#sub_number3_lb,
+#custom-sub-buttons>#sub_number9_lb {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+}
+
+
 
 h3 {
     text-align: center;
@@ -455,22 +504,84 @@ hr.newgridhrline {
     color: var(--white);
 }
 
-#sub_number3_lb {
+/* #sub_number3_lb {
     background: url(images/corners.png);
     background-repeat: no-repeat;
     background-size: 90% 90%;
     background-position: center;
     vertical-align: top;
     width: 20px;
+} */
+/* --- ADD THIS NEW CSS --- */
+
+/* 1. Style for the Normal (Unselected) Button */
+#sub_number3_lb {
+    /* Set the size of the button */
+    width: 30px;
+    height: 30px;
+
+    /* Center the background icon and ensure it doesn't repeat */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
+    /* Make the icon slightly smaller than the button */
+
+    /* The SVG code for the BLUE numbers icon */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text x='3' y='7' font-size='8' font-weight='bold' fill='%233370ea'>1</text><text x='21' y='7' font-size='8' font-weight='bold' text-anchor='end' fill='%233370ea'>2</text><text x='3' y='21' font-size='8' font-weight='bold' fill='%233370ea'>3</text><text x='21' y='21' font-size='8' font-weight='bold' text-anchor='end' fill='%233370ea'>4</text></svg>");
 }
 
-#sub_number9_lb {
-    background: url(images/sides.png);
+/* 2. Style for the Active (Selected) Button */
+input[type="radio"]:checked+#sub_number3_lb {
+    /* The SVG code for the BLACK numbers icon */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text x='3' y='7' font-size='8' font-weight='bold' fill='%23000000'>1</text><text x='21' y='7' font-size='8' font-weight='bold' text-anchor='end' fill='%23000000'>2</text><text x='3' y='21' font-size='8' font-weight='bold' fill='%23000000'>3</text><text x='21' y='21' font-size='8' font-weight='bold' text-anchor='end' fill='%23000000'>4</text></svg>");
+}
+
+/* --- UPDATED CSS WITH MORE GAP --- */
+/* --- ADD OR REPLACE WITH THIS CSS --- */
+
+/* 1. Style for the Normal (Unselected) Button */
+#sub_number1_lb {
+    /* Set the size of the button */
+    width: 30px;
+    height: 30px;
+
+    /* This hides the original "Normal" text */
+    font-size: 0;
+
+    /* Center the background icon and ensure it doesn't repeat */
     background-repeat: no-repeat;
-    background-size: 90% 90%;
     background-position: center;
-    vertical-align: top;
-    width: 20px;
+    background-size: 90%;
+
+    /* The SVG code for the BLUE single number icon */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text x='12' y='12' font-size='10' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='%233370ea'>1</text></svg>");
+}
+
+/* 2. Style for the Active (Selected) Button */
+input[type="radio"]:checked+#sub_number1_lb {
+    /* The SVG code for the BLACK single number icon */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text x='12' y='12' font-size='10' font-weight='bold' text-anchor='middle' dominant-baseline='middle' fill='%23000000'>1</text></svg>");
+}
+
+/* 1. Style for the Normal (Unselected) Button */
+#sub_number9_lb {
+    /* Set the size of the button */
+    width: 30px;
+    height: 30px;
+
+    /* Center the background icon and ensure it doesn't repeat */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 90%;
+
+    /* The SVG code for the BLUE 4-sided numbers icon - with more gap */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text x='12' y='5' font-size='8' font-weight='bold' text-anchor='middle' fill='%233370ea'>1</text><text x='12' y='23' font-size='8' font-weight='bold' text-anchor='middle' fill='%233370ea'>2</text><text x='1' y='12.5' font-size='8' font-weight='bold' dominant-baseline='middle' fill='%233370ea'>3</text><text x='23' y='12.5' font-size='8' font-weight='bold' text-anchor='end' dominant-baseline='middle' fill='%233370ea'>4</text></svg>");
+}
+
+/* 2. Style for the Active (Selected) Button */
+input[type="radio"]:checked+#sub_number9_lb {
+    /* The SVG code for the BLACK 4-sided numbers icon - with more gap */
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><text x='12' y='5' font-size='8' font-weight='bold' text-anchor='middle' fill='%23000000'>1</text><text x='12' y='23' font-size='8' font-weight='bold' text-anchor='middle' fill='%23000000'>2</text><text x='1' y='12.5' font-size='8' font-weight='bold' dominant-baseline='middle' fill='%23000000'>3</text><text x='23' y='12.5' font-size='8' font-weight='bold' text-anchor='end' dominant-baseline='middle' fill='%23000000'>4</text></svg>");
 }
 
 #st_number6_lb {
@@ -1610,75 +1721,10 @@ sup {
     user-select: text;
     margin-top: 20px;
 }
+
 /* --- Penpa Contest Mode Final Layout --- */
 
-@media (max-width: 1010px) {
-    #number-input-panel {
-        width: 240px; /* You can adjust this size */
-        margin: 20px auto;
-        gap: 5px;
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    #number-input-panel .erase {
-        grid-column: 1 / 4;
-    }
-
-    /* General styling for number buttons */
-    #number-input-panel button {
-        height: 35px;
-        font-size: 20px;
-        border: none;
-        background-color: #cbd9ec;
-        color: #3370ea;
-        font-weight: 500;
-        cursor: pointer;
-        border-radius: 10px;
-    }
-
-    #number-input-panel .erase {
-        background-color: rgb(250, 186, 186);
-    }
-
-    /* NEW: This is the container for your custom buttons */
-    #custom-sub-buttons {
-        grid-column: 1 / 4; /* Make the container span the full width */
-        display: flex;
-        justify-content: center; /* Center the buttons inside */
-        gap: 5px;
-    }
-
-    /* Style the custom buttons that are inside the new container */
-    #custom-sub-buttons > .labelL {
-        height: 35px;
-        width: 65px; /* Give the buttons a fixed width */
-        font-size: 16px;
-        border: none;
-        background-color: #cbd9ec;
-        color: #3370ea;
-        font-weight: 500;
-        cursor: pointer;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px;
-    }
-
-    /* Highlight the selected custom button */
-    #custom-sub-buttons > input:checked + .labelL {
-        background: var(--greyLight);
-        color: var(--black);
-        box-shadow: 0 0 0 2px var(--orange);
-    }
-
-    /* Fix the stretched icon buttons */
-    #custom-sub-buttons > #sub_number3_lb,
-    #custom-sub-buttons > #sub_number9_lb {
-        background-size: contain !important;
-        background-repeat: no-repeat !important;
-    }
-}
+@media (max-width: 1010px) {}
 
 @media (min-width: 850px) {
     #app-container.responsive {
@@ -1774,19 +1820,7 @@ sup {
     }
 }
 
-@media only screen and (max-width:410px) {
-    /* #canvas {
-        width: 100vw !important;
-        height: 100vw !important;
-    }
-
-    #dvique {
-        width: 100vw !importa rcrfnt;
-        height: 100vw !important;
-    } */
-
-    
-}
+@media only screen and (max-width:410px) {}
 
 /* Replay */
 .replay {
@@ -1794,10 +1828,8 @@ sup {
     font-size: 30px;
     padding: 2px;
 }
-/* --- Penpa Contest Mode Customization --- *//* --- Penpa Contest Mode Customization (Final Version) --- */
-/*/* --- Penpa Contest Mode Final Customization --- */
 
-/* 1. Hide unnecessary UI elements */
+
 .contest-mode-active #header,
 .contest-mode-active #top_button,
 .contest-mode-active #edit_button,
@@ -1807,8 +1839,8 @@ sup {
 }
 
 /* 2. Hide all main mode buttons */
-.contest-mode-active #mode_button > .label,
-.contest-mode-active #mode_button > input {
+.contest-mode-active #mode_button>.label,
+.contest-mode-active #mode_button>input {
     display: none !important;
 }
 
@@ -1819,13 +1851,43 @@ sup {
 }
 
 /* 4. Specifically hide ONLY the unwanted sub-modes */
-.contest-mode-active #sub_number1,      /* Normal input */
-.contest-mode-active #sub_number1_lb,   /* Normal label */
-.contest-mode-active #sub_number7,      /* Candidates input */
-.contest-mode-active #sub_number7_lb,   /* Candidates label */
-.contest-mode-active #sub_number8,      /* Long input */
-.contest-mode-active #sub_number8_lb {  /* Long label */
+.contest-mode-active #sub_number1,
+/* Normal input */
+.contest-mode-active #sub_number1_lb,
+/* Normal label */
+.contest-mode-active #sub_number7,
+/* Candidates input */
+.contest-mode-active #sub_number7_lb,
+/* Candidates label */
+.contest-mode-active #sub_number8,
+/* Long input */
+.contest-mode-active #sub_number8_lb {
+    /* Long label */
     display: none !important;
 }
 
-/* Removes the space left by the hidden header */
+#custom-undo-redo button {
+    /* --- Sizing from number panel buttons --- */
+    height: 35px;
+    font-size: 20px;
+    width: 65px;
+    /* Giving a fixed width for consistency */
+
+    /* --- Visual style from number panel buttons --- */
+    background-color: #cbd9ec;
+    color: #3370ea;
+    font-weight: 500;
+    border-radius: 10px;
+    border: none;
+
+    /* --- Alignment & Spacing --- */
+    display: inline-flex;
+    /* Use flexbox for easy centering */
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    /* Keeps the space between buttons */
+    padding: 0;
+    /* Remove the old padding */
+    cursor: pointer;
+}
