@@ -12848,6 +12848,18 @@ class Puzzle {
                             })
                         }, 20);
                         sw_timer.pause();
+                          // --- This is the key part ---
+                    // 1. Read the parent's origin from the URL.
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const wixParentOrigin = urlParams.get('parentOrigin');
+
+                    // 2. Set the target for the message.
+                    const targetOrigin = wixParentOrigin || 'https://www.malsar.in'; // Your site as a fallback.
+
+                    // 3. Send the message back to the Wix page.
+                    parent.postMessage('sudokuComplete', targetOrigin);
+                    
+                    this.sol_flag = 1;
                         // this.mouse_mode = "out";
                         // this.mouseevent(0, 0, 0);
                         this.sol_flag = 1;
