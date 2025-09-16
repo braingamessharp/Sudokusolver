@@ -12849,15 +12849,16 @@ class Puzzle {
                         }, 20);
                         sw_timer.pause();
                         // --- This is the key part ---
-                        // 1. Read the parent's origin from the URL.
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const wixParentOrigin = urlParams.get('parentOrigin');
+                        const hashParams = new URLSearchParams(window.location.hash.substring(1)); // Remove the '#' and parse
+                        const wixParentOrigin = hashParams.get('parentOrigin');
 
                         if (wixParentOrigin) {
-                            console.log("Attempting to send 'sudokuComplete' message to origin:", wixParentOrigin);
-                            parent.postMessage('sudokuComplete', wixParentOrigin);
+                            // 2. If found, decode it and send the message
+                            const targetOrigin = decodeURIComponent(wixParentOrigin);
+                            console.log("Attempting to send 'sudokuComplete' message to origin:", targetOrigin);
+                            parent.postMessage('sudokuComplete', targetOrigin);
                         } else {
-                            console.error("Could not find parentOrigin in the URL. Cannot send message.");
+                            console.error("Could not find parentOrigin in the URL hash. Cannot send message.");
                         }
 
                         this.sol_flag = 1;
