@@ -12855,10 +12855,10 @@ class Puzzle {
 
                     // 2. Set the target for the message.
                     const targetOrigin = wixParentOrigin || 'https://www.malsar.in'; // Your site as a fallback.
-                    console.log("Attempting to send 'sudokuComplete' message to origin:", targetOrigin);
+                    console.log("Attempting to send 'sudokuComplete' message to origin:", '*');
 
                     // 3. Send the message back to the Wix page.
-                    parent.postMessage('sudokuComplete', targetOrigin);
+                    parent.postMessage('sudokuComplete', '*');
                     
                     this.sol_flag = 1;
                         // this.mouse_mode = "out";
