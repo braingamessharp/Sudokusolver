@@ -12839,31 +12839,24 @@ class Puzzle {
                         }
                         setTimeout(() => {
                             Swal.fire({
-                                title: Identity.solveTitle ? '<h3 class="wish">' + Identity.solveTitle + '</h3>' : undefined,
-                                html: '<h2 class="wish">' + message + '</h2>',
-                                background: 'url(js/images/new_year.jpg)',
+                                title: 'Congratulations!',
+                                html: '<h2 class="wish">Puzzle Solved!<br>The success code has been copied to your clipboard.</h2>',
                                 icon: 'success',
-                                confirmButtonText: Identity.solveOKButtonText,
-                                // timer: 5000
+                                confirmButtonText: 'Great!',
+                                background: 'url(js/images/new_year.jpg)',
+
                             })
                         }, 20);
                         sw_timer.pause();
                         // --- This is the key part ---
                         // ... inside the check_solution function ...
 
-                        if (text === this.solution && this.sol_flag === 0) {
-                            // ... congratulations pop-up code ...
-                            sw_timer.pause();
-
-                            window.location.href += "&status=complete";
-
-                            this.sol_flag = 1;
+                        try {
+                            navigator.clipboard.writeText('PUZZLE_SOLVED_CODE');
+                            console.log('Success code copied to clipboard.');
+                        } catch (err) {
+                            console.error('Failed to copy success code: ', err);
                         }
-                        // ... rest of the code ...
-
-                        this.sol_flag = 1;
-                        // this.mouse_mode = "out";
-                        // this.mouseevent(0, 0, 0);
                         this.sol_flag = 1;
                         // document.getElementById("pu_a_label").innerHTML = "Correct Solution";
                         // document.getElementById("pu_a_label").style.backgroundColor = Color.GREEN_LIGHT_VERY;
