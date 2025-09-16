@@ -12849,17 +12849,34 @@ class Puzzle {
                         }, 20);
                         sw_timer.pause();
                         // --- This is the key part ---
-                        const hashParams = new URLSearchParams(window.location.hash.substring(1)); // Remove the '#' and parse
-                        const wixParentOrigin = hashParams.get('parentOrigin');
+                        // ... inside the check_solution function ...
 
-                        if (wixParentOrigin) {
-                            // 2. If found, decode it and send the message
-                            const targetOrigin = decodeURIComponent(wixParentOrigin);
-                            console.log("Attempting to send 'sudokuComplete' message to origin:", targetOrigin);
-                            parent.postMessage('sudokuComplete', targetOrigin);
-                        } else {
-                            console.error("Could not find parentOrigin in the URL hash. Cannot send message.");
+                        if (text === this.solution && this.sol_flag === 0) {
+                            // ... congratulations pop-up code ...
+                            sw_timer.pause();
+
+                            // --- START FINAL REPLACEMENT BLOCK ---
+
+                            // 1. Get the entire URL of the iframe
+                            const fullUrl = window.location.href;
+
+                            // 2. Manually search for the parentOrigin parameter in the URL string
+                            const match = fullUrl.match(/[?&]parentOrigin=([^&]+)/);
+
+                            if (match && match[1]) {
+                                // 3. If found, decode it and send the message
+                                const wixParentOrigin = decodeURIComponent(match[1]);
+                                console.log("SUCCESSFULLY FOUND parentOrigin:", wixParentOrigin);
+                                parent.postMessage('sudokuComplete', wixParentOrigin);
+                            } else {
+                                console.error("FINAL ATTEMPT FAILED: Still could not find parentOrigin in this URL:", fullUrl);
+                            }
+
+                            // --- END FINAL REPLACEMENT BLOCK ---
+
+                            this.sol_flag = 1;
                         }
+                        // ... rest of the code ...
 
                         this.sol_flag = 1;
                         // this.mouse_mode = "out";
